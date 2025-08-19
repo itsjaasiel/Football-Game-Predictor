@@ -39,7 +39,33 @@
 <section id="predict" class="py-5 bg-light">
     <div class="container">
       <h2 class="mb-4">Match Predictor</h2>
-      <!-- Insert prediction form here -->
+      <!-- Form to select teams to predict -->
+      <form class="card p-4 shadow-sm">
+        <div class="mb-3">
+          <label>League</label>
+          <select class="form-select" id="leagueSelect">
+            <option value="">-- Select League --</option>
+            <option value="Premier League">Premier League</option>
+            <option value="La Liga">La Liga</option>
+            <option value="Bundesliga">Bundesliga</option>
+            <option value="Seria A">Serie A</option>
+            <option value="Ligue 1">Ligue 1</option>
+          </select>
+        </div>
+      
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label>Team A</label>
+            <select class="form-select" id="teamASelect"></select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Team B</label>
+            <select class="form-select" id="teamBSelect"></select>
+          </div>
+        </div>
+      
+        <button type="button" class="btn btn-primary w-100" id="predictBtn">Predict</button>
+      </form>
     </div>
   </section>
   
