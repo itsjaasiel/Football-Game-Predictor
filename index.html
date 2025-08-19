@@ -73,7 +73,33 @@
   <section id="fixtures" class="py-5 bg-white">
       <div class="container">
         <h2 class="mb-4">Upcoming Fixtures</h2>
-        <!-- Insert fixtures table here -->
+        <!-- Calendar view for fixtures -->
+        <section id="fixtures" class="py-5 bg-white">
+            <div class="container">
+          
+              <div class="mb-3">
+                <label for="fixtureDate" class="form-label">Select Date:</label>
+                <input type="date" id="fixtureDate" class="form-control" />
+              </div>
+          
+              <!-- Fixtures table -->
+              <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Date</th>
+                    <th>Home Team</th>
+                    <th>Away Team</th>
+                    <th>Predicted Score</th>
+                    <th>Confidence</th>
+                  </tr>
+                </thead>
+                <tbody id="fixturesTableBody">
+                  <!-- Rows will be populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+          
       </div>
     </section>
     
