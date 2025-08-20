@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 import requests, os
 from dotenv import load_dotenv
 
@@ -7,16 +7,22 @@ load_dotenv()
 
 API_KEY = os.getenv("FOOTBALL_API_KEY")
 BASE_URL = "https://v3.football.api-sports.io"
-
 headers = {"x-apisports-key": API_KEY}
 
 app = Flask(__name__)
 
-@app.route("/fixtures/<league_id>")
-def get_fixtures(league_id):
-    url = f"{BASE_URL}/fixtures?league={league_id}&season=2024&next=5"
-    response = requests.get(url, headers=headers)
-    return jsonify(response.json())
+@app.route("/fixtures")
+def get_fixtures():
+    date = request.args.get("date")
+    if not date:
+        return jsonify({"error": "Missing date"}), 400
 
-if __name__ == "__main__":
-    app.run(debug=True)
+    url = f"{BASE_URL}/fixtures"
+    params = {"date": date, "league": 39, "season": 2025}
+    
+    response = requests.get(url, headers=headers, params=params)
+    
+    if response.status_code != 200:
+        return jsonify({"error": "API call failed", "details": response.text}), 500
+    
+    return jsonify(response.json())

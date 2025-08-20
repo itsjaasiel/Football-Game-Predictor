@@ -81,7 +81,32 @@
                 <label for="fixtureDate" class="form-label">Select Date:</label>
                 <input type="date" id="fixtureDate" class="form-control" />
               </div>
-          
+              <script>
+                document.getElementById("fixtureDate").addEventListener("change", function() {
+                  const date = this.value; //get date selected in calendar to then render in fixtures played
+                  fetch(`/fixtures?date=${date}`)
+                    .then(res => res.json())
+                    .then(data => renderFixtures(data.response));
+                });
+              
+                function renderFixtures(fixtures) {
+                  const container = document.getElementById("fixtures-list");
+                  container.innerHTML = "";
+              
+                  fixtures.forEach(fix => {
+                    const match = document.createElement("div");
+                    match.classList.add("fixture", "p-2", "border-bottom");
+                    match.innerHTML = `
+                      <strong>${fix.teams.home.name}</strong> vs 
+                      <strong>${fix.teams.away.name}</strong>
+                      <br>
+                      ${new Date(fix.fixture.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                      <span class="badge bg-secondary">${fix.league.name}</span>
+                    `;
+                    container.appendChild(match);
+                  });
+                }
+              </script>
               <!-- Fixtures table -->
               <table class="table table-striped table-hover">
                 <thead class="table-dark">
